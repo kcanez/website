@@ -1,0 +1,6 @@
+<%- @beers.each do |f| %>
+	<h2><%= link_to f.name, beer_path(f) %></h2>
+<% end %>
+
+
+<%= link_to "Add Beer", new_beer_path %>
