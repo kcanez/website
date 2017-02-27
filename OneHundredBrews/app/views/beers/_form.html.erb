@@ -1,5 +1,6 @@
 <%= simple_form_for @beer, :html => {:multipart => true} do |f| %>
 	<%= select_tag(:category_id, options_for_select(@categories), :prompt => "Select a style") %>
+	<%= f.file_field :beer_image %>
 	<%= f.input :name, label: "Beer Name:" %>
 	<%= f.input :brewery %>
 	<%= f.input :description %>

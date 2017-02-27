@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170227003629) do
+ActiveRecord::Schema.define(version: 20170227020738) do
 
   create_table "beers", force: :cascade do |t|
     t.string   "name"
@@ -19,10 +19,14 @@ ActiveRecord::Schema.define(version: 20170227003629) do
     t.text     "review"
     t.string   "style"
     t.float    "abv"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.integer  "user_id"
     t.integer  "category_id"
+    t.string   "beer_image_file_name"
+    t.string   "beer_image_content_type"
+    t.integer  "beer_image_file_size"
+    t.datetime "beer_image_updated_at"
   end
 
   create_table "categories", force: :cascade do |t|

@@ -1,14 +1,27 @@
-<h1><%= @beer.brewery %></h1>
-<h1><%= @beer.name %></h1>
-<h4>Category: <%=  @beer.category.name %></h4>
-<p><%= @beer.description %></p>
-<p><%= @beer.review %></p>
-
-<% if user_signed_in? %>
+<div class="row">
+	<div class="col-md-4">
+		<%= image_tag @beer.beer_image.url(:beer_show), class: "beer_show" %>
+	</div>
+	
+	<div class="col-md-8">
+		<h1><%= @beer.brewery %></h1>
+		<h2><%= @beer.name %></h2>
+		<p><%= @beer.review %></p>
+	</div>
+	
+	<div class="row">
+		<div class"col-md-4">
+		</div>
+	</div>
+	
+	
+	
 	<%= link_to "back", root_path %>
-
-	<% if @beer.user_id == current_user.id %>
-		<%= link_to "Edit", edit_beer_path(@beer) %>
-		<%= link_to "Delete", beer_path(@beer), method: :delete, data: { confirm: "Are you sure?"} %>
+	
+	<% if user_signed_in? %>
+		<% if @beer.user_id == current_user.id %>
+			<%= link_to "Edit", edit_beer_path(@beer) %>
+			<%= link_to "Delete", beer_path(@beer), method: :delete, data: { confirm: "Are you sure?"} %>
+		<% end %>
 	<% end %>
-<% end %>
+</div>

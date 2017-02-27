@@ -3,7 +3,17 @@
 <% if @beers.count == 0 %>
 	<h2>There are no beers currently in this category</h2>
 <% else %>
-	<%- @beers.each do |f| %>
-		<h2><%= link_to f.name, beer_path(f) %></h2>
-	<% end %>
+
+	<div class="row">
+		<%- @beers.each do |f| %>
+		<div class="col-md-3">
+			<a href="/beers/<%= f.id %>">
+				<%= image_tag f.beer_image.url(:beer_index), class: "beer" %>
+			</a>
+		</div>
+		<% end %>
+	</div>
+	
+	
+	
 <% end %>
