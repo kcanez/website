@@ -3,7 +3,12 @@ class BeersController < ApplicationController
 	
 	
 	def index
-		@beers = Beer.all.order("created_at DESC")
+		if params[:category].blank?
+			@beers = Beer.all.order("created_at DESC")
+		else
+			@category_id = Category.find_by(name: params[:category]).id
+			@beers = Beer.where(:category_id => @category_id).order("created_at DESC")
+		end
 	end
 	
 	
@@ -13,11 +18,13 @@ class BeersController < ApplicationController
 	
 	
 	def new
-		@beer = Beer.new
+		@beer = current_user.beers.build
+		@categories = Category.all.map{ |c| [c.name, c.id] }		
 	end
 	
 	def create
-		@beer = Beer.new(beer_params)
+		@beer = current_user.beers.build(beer_params)
+		@beer.category_id = params[:category_id]
 		
 		if @beer.save
 			redirect_to root_path
@@ -28,9 +35,11 @@ class BeersController < ApplicationController
 	end
 	
 	def edit
+		@categories = Category.all.map{ |c| [c.name, c.id] }
 	end
 	
 	def update
+		@beer.category_id = params[:category_id]
 		if @beer.update(beer_params)
 			redirect_to beer_path(@beer)
 		else
@@ -48,7 +57,7 @@ class BeersController < ApplicationController
 	private
 	
 	def beer_params
-		params.require(:beer).permit(:name, :description, :brewery, :review, :style, :abv)
+		params.require(:beer).permit(:name, :description, :brewery, :review, :style, :abv, :category_id)
 	end
 	
 	def find_beer

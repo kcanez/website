@@ -1,6 +1,9 @@
-<%- @beers.each do |f| %>
-	<h2><%= link_to f.name, beer_path(f) %></h2>
+<h1 class="current-category"><%= params[:category] %></h1>
+
+<% if @beers.count == 0 %>
+	<h2>There are no beers currently in this category</h2>
+<% else %>
+	<%- @beers.each do |f| %>
+		<h2><%= link_to f.name, beer_path(f) %></h2>
+	<% end %>
 <% end %>
-
-
-<%= link_to "Add Beer", new_beer_path %>
